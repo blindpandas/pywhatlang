@@ -12,12 +12,7 @@ env:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        os: ['ubuntu-latest', 'windows-latest']
-        python_version: ['3.7', '3.8', '3.9', '3.10']
-        python_architecture: ['x86', 'x64']
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -27,16 +22,15 @@ jobs:
         run: cargo test --verbose
       - name: setup python
         uses: actions/setup-python@v4
-        id: cpy
         with:
-          python-version: ${{ matrix.python_version }}
-          architecture: ${{ matrix.python_architecture }}
+          python-version: '3.9'
+          architecture: 'x64'
       - name: Update pip
         run: python -m pip install --upgrade pip setuptools wheel
       - name: Install dependencies
-        run: python -m pip install twine maturin
+        run: python -m pip install invoke twine maturin
       - name: Build python wheels
-        run: python -m maturin build --release --strip -i '${{ steps.cpy.outputs.python-path }}'
+        run: python -m invoke build-wheels --release --strip
       - name: Publish distribution 📦 to PyPI
         if: startsWith(github.ref, 'refs/tags')
-        run: python -m twine upload  "./target/wheels/*" --non-interactive --skip-existing
+        run: python -m invoke upload-wheels
