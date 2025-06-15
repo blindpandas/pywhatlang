@@ -11,7 +11,7 @@ fn detect_lang(text: String) -> PyResult<(String, f64, bool)> {
 
 /// A wrapper for whatlang rust crate.
 #[pymodule]
-fn pywhatlang(_py: Python, m: &PyModule) -> PyResult<()> {
+fn pywhatlang(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(detect_lang, m)?)?;
     Ok(())
 }

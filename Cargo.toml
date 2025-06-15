@@ -1,12 +1,12 @@
 [package]
 name = "pywhatlang"
 version = "1.0.0"
-edition = "2021"
+edition = "2024"
 
 [lib]
 name = "pywhatlang"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = { version = "0.16.5", features = ["extension-module"] }
+pyo3 = { version = "0.25.0", features = ["extension-module"] }
 whatlang = "0.16.0"
