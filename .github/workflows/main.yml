@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 jobs:
-  windows3.10:
+  windows3-10:
     runs-on: ${{ matrix.platform.runner }}
     strategy:
       matrix:
@@ -37,7 +37,7 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          name: wheels-windows-${{ matrix.platform.target }}-3.1'0
+          name: wheels-windows-${{ matrix.platform.target }}-3-10
           path: dist
 
   windows:
@@ -90,7 +90,7 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     if: ${{ startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch' }}
-    needs: [windows, sdist, windows3.10]
+    needs: [windows, sdist, windows3-10]
     permissions:
       # Use to sign the release artifacts
       id-token: write
