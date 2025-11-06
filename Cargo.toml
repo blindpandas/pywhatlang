@@ -8,5 +8,5 @@ name = "pywhatlang"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = { version = "0.25.0", features = ["extension-module"] }
+pyo3 = { version = "0.25.0", features = ["extension-module", "abi3"] }
 whatlang = "0.16.0"
